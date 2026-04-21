@@ -1,8 +1,8 @@
-# 🌐 School Management System (Web-Based with Python & PHP)
+# 🌐 School Management System (Web-Based with Python & HTML)
 
 ## 📌 Overview
 
-This project is a web-based School Management System that integrates a Python backend logic with a PHP-based web interface.
+This project is a web-based School Management System that integrates a Python backend logic with a HTML-based web interface.
 
 The system allows users to manage student records, academic data, and administrative operations through a user-friendly interface, replacing the original command-line version with a more practical and interactive solution.
 
@@ -14,7 +14,7 @@ The system allows users to manage student records, academic data, and administra
 * Admin panel for system control
 * Web-based user interface (UI)
 * Data handling using CSV files
-* Integration between Python logic and PHP frontend
+* Integration between Python logic and HTML&CSS frontend
 * Modular system design
 
 ---
@@ -22,7 +22,7 @@ The system allows users to manage student records, academic data, and administra
 ## 🛠 Tech Stack
 
 * Backend Logic: Python (OOP)
-* Web Layer: PHP
+* Web Layer: HTML
 * Frontend: HTML, CSS, JavaScript
 * Data Storage: CSV files
 
