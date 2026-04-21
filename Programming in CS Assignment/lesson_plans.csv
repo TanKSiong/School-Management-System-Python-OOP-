@@ -1,0 +1,5 @@
+TeacherID,CourseID,Topic,Objectives,Materials
+T001,C101,Algebra Basics,Understand variables and expressions,"Whiteboard, Textbook"
+T001,C101,Linear Equations,Solve equations with one variable,"Worksheet, Calculator"
+T002,C102,Cell Structure,Identify cell organelles,"Slides, Microscope"
+T002,C107,Acids & Bases,Explain pH scale,"Lab kit, pH paper"

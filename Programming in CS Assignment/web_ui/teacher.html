@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Portal - EduCore</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .portal-container { max-width: 900px; background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 24px; padding: 2.5rem; margin: 2rem auto; width: 90%; position: relative; z-index: 1; animation: fadeInUp 0.8s ease-out forwards; }
+        .portal-header { margin-bottom: 2.5rem; text-align: left; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .portal-header-left { display: flex; align-items: center; gap: 1rem; }
+        .portal-header .icon { width: 65px; height: 65px; font-size: 2.2rem; margin: 0; background: rgba(99, 102, 241, 0.2); border-color: rgba(99, 102, 241, 0.5); transform: none !important; }
+        .portal-header h1 { font-size: 2.2rem; background: none; -webkit-text-fill-color: var(--text-color); margin: 0; }
+        .back-link { color: var(--primary-light); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s; }
+        .back-link:hover { transform: translateX(-5px); }
+        .grid-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        @media (max-width: 768px) { .grid-cards { grid-template-columns: 1fr; } }
+        .task-card { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: background 0.3s, transform 0.3s; }
+        .task-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-5px); }
+        .task-card h3 { margin-bottom: 0.8rem; font-size: 1.2rem; font-weight: 600; }
+        .task-card p { color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5; }
+        .btn { display: inline-block; padding: 0.8rem 1.5rem; background: var(--primary); border: none; border-radius: 12px; color: white; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: background 0.3s, transform 0.2s; text-decoration: none; }
+        .btn:hover { background: var(--primary-light); transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="background" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <div class="portal-container">
+        <header class="portal-header">
+            <div class="portal-header-left">
+                <div class="icon">👨‍🏫</div>
+                <h1>Teacher Portal</h1>
+            </div>
+            <a href="index.html" class="back-link">← Back to Dashboard</a>
+        </header>
+
+        <div class="grid-cards">
+            <!-- Attendance Management -->
+            <div class="task-card">
+                <h3>📘 Attendance Management</h3>
+                <p>Teacher attendance tracking.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptMarkAttendance()">Mark Attendance</button>
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptViewAttendance()">View Attendance Report</button>
+                </div>
+            </div>
+
+            <!-- Student Assessment -->
+            <div class="task-card">
+                <h3>📝 Assessment & Grading</h3>
+                <p>Record and update marks.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptInputMarks()">Input Marks</button>
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptUpdateMarks()">Update Marks</button>
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="fetchGrades()">Performance Analytics</button>
+                </div>
+            </div>
+
+            <!-- Profile Management -->
+            <div class="task-card">
+                <h3>👤 Profile Management</h3>
+                <p>Update personal information.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptUpdateProfile()">Update Profile</button>
+                </div>
+            </div>
+
+            <!-- Schedule & Lessons -->
+            <div class="task-card">
+                <h3>📅 Schedule & Lessons</h3>
+                <p>Manage class schedules and lesson plans.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="fetchClasses()">View Schedule</button>
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptModifySchedule()">Modify Schedule</button>
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptAddLessonPlan()">Add Lesson Plan</button>
+                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="promptViewLessonPlans()">View Lesson Plans</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interactive Code for Python Flask Integration -->
+        <div id="results-container" style="margin-top: 2rem; display: none; background: rgba(0,0,0,0.25); padding: 1.5rem; border-radius: 16px;">
+            <h3 id="results-title" style="margin-bottom: 1rem; font-size: 1.2rem; font-weight: 600;">Results</h3>
+            <div id="results-content" style="color: #cbd5e1; font-family: 'Inter', sans-serif; overflow-x: auto;"></div>
+        </div>
+    </div>
+    
+        <div id="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center;">
+            <div style="background: var(--card-bg); padding: 2rem; border-radius: 16px; border: 1px solid var(--primary-light); width: 400px; max-width: 90%;">
+                <h3 id="modal-title" style="margin-bottom: 1rem;">Action</h3>
+                <div id="modal-body"></div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button class="btn" style="background: #475569;" onclick="document.getElementById('modal-overlay').style.display='none'">Cancel</button>
+                    <button class="btn" id="modal-submit">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Modal & Action Logic
+        function openModal(title, fields, onSubmit) {
+            document.getElementById('modal-title').innerText = title;
+            let bodyHtml = '';
+            fields.forEach(f => {
+                bodyHtml += `<div style="margin-bottom: 1rem;">
+                    <label style="display:block; margin-bottom: 0.3rem;">${f.label}</label>
+                    <input type="text" id="input-${f.id}" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white;" placeholder="${f.label}">
+                </div>`;
+            });
+            document.getElementById('modal-body').innerHTML = bodyHtml;
+            
+            document.getElementById('modal-submit').onclick = async () => {
+                let data = {};
+                fields.forEach(f => { data[f.id] = document.getElementById(`input-${f.id}`).value; });
+                await onSubmit(data);
+                document.getElementById('modal-overlay').style.display='none';
+            };
+            
+            document.getElementById('modal-overlay').style.display='flex';
+        }
+
+        async function sendRest(url, method, data) {
+            try {
+                let res = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: data ? JSON.stringify(data) : null
+                });
+                let result = await res.json();
+                
+                if (res.ok) {
+                    alert(result.message || "Action successful!");
+                } else {
+                    alert(result.message || "An error occurred");
+                }
+            } catch (err) {
+                alert("Failed to connect to the server.");
+            }
+        }
+
+        function promptMarkAttendance() { openModal('Mark Attendance', [{id:'sid', label:'Student ID'}, {id:'cid', label:'Course ID'}, {id:'week', label:'Week (e.g. Week1)'}, {id:'status', label:'Status (Present/Absent)'}], (data) => sendRest('/api/academic/attendance/mark', 'PUT', data)); }
+        function promptInputMarks() { openModal('Input Marks', [{id:'sid', label:'Student ID'}, {id:'cid', label:'Course ID'}, {id:'assess', label:'Assessment Marks'}, {id:'final', label:'Final Exam Marks'}], (data) => sendRest('/api/academic/marks/input', 'PUT', data)); }
+        function promptUpdateMarks() { openModal('Update Marks', [{id:'sid', label:'Student ID'}, {id:'cid', label:'Course ID'}, {id:'mark_type', label:'Mark Type (AssessmentMarks/FinalExamMarks)'}, {id:'new_val', label:'New Value'}], (data) => sendRest('/api/academic/marks/update', 'PUT', data)); }
+        
+        function promptUpdateProfile() {
+            let tid = prompt("Please enter your Teacher ID:", "T001");
+            if(tid) {
+                openModal('Update Profile', [{id:'column', label:'Column (Name/Contact/Position)'}, {id:'new_value', label:'New Value'}], (data) => sendRest(`/api/employees/${tid}`, 'PUT', data));
+            }
+        }
+        function promptModifySchedule() { alert("Modify Schedule via teacher not supported, please contact admin."); }
+        
+        function promptAddLessonPlan() {
+            let tid = prompt("Please enter your Teacher ID:", "T001");
+            if(tid) {
+                openModal('Add Lesson Plan', [{id:'cid', label:'Course ID'}, {id:'topic', label:'Topic'}, {id:'objectives', label:'Objectives'}, {id:'materials', label:'Materials'}], (data) => sendRest('/api/academic/lessons', 'POST', {...data, teacher_id: tid}));
+            }
+        }
+
+        async function fetchClasses() {
+            const container = document.getElementById('results-container');
+            const title = document.getElementById('results-title');
+            const content = document.getElementById('results-content');
+            
+            container.style.display = 'block';
+            title.innerText = 'Loading classes...';
+            content.innerHTML = '<span style="color:var(--primary-light)">Fetching live scheduled classes from python...</span>';
+            
+            try {
+                let response = await fetch('/api/academic/schedule');
+                let data = await response.json();
+                
+                if(data.length === 0) {
+                    content.innerText = "No classes found.";
+                } else {
+                    let tableHTML = `<table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); text-align: left; color: white;">
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Course ID</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Course Name</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Classroom</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Time</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Teacher</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                    
+                    data.forEach(item => {
+                        tableHTML += `<tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 0.8rem 0.5rem;">${item.CourseID || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.CourseName || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.Classroom || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.LectureTime || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.Teacher || ''}</td>
+                        </tr>`;
+                    });
+                    tableHTML += `</tbody></table>`;
+                    
+                    title.innerText = '🏫 Class Schedule';
+                    content.innerHTML = tableHTML;
+                }
+            } catch (error) {
+                title.innerText = 'Error';
+                content.innerText = 'Failed to fetch data! Ensure python app.py is running.';
+            }
+        }
+        
+        async function fetchGrades() {
+            const container = document.getElementById('results-container');
+            const title = document.getElementById('results-title');
+            const content = document.getElementById('results-content');
+            
+            container.style.display = 'block';
+            title.innerText = 'Loading academic records...';
+            content.innerHTML = '<span style="color:var(--primary-light)">Fetching live records...</span>';
+            
+            try {
+                let response = await fetch('/api/academic');
+                let data = await response.json();
+                
+                if(data.length === 0) {
+                    content.innerText = "No records found.";
+                } else {
+                    let tableHTML = `<table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); text-align: left; color: white;">
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Student</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Course</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Assessment</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Exam</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                    
+                    data.forEach(item => {
+                        tableHTML += `<tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 0.8rem 0.5rem;">${item.StudentName || ''} (${item.StudentID || ''})</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.CourseID || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.AssessmentMarks || '0'}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.FinalExamMarks || '0'}</td>
+                        </tr>`;
+                    });
+                    tableHTML += `</tbody></table>`;
+                    
+                    title.innerText = '📝 Grading View';
+                    content.innerHTML = tableHTML;
+                }
+            } catch (error) {
+                title.innerText = 'Error';
+                content.innerText = 'Failed to fetch data! Ensure python app.py is running.';
+            }
+        }
+        
+        async function fetchAttendance() {
+            const container = document.getElementById('results-container');
+            const title = document.getElementById('results-title');
+            const content = document.getElementById('results-content');
+            
+            container.style.display = 'block';
+            title.innerText = 'Attendance Tracker';
+            content.innerHTML = 'Attendance Module ready! (Python POST feature coming in next integration step)';
+        }
+
+        function promptViewAttendance() {
+            let tid = prompt("Please enter your Teacher ID to view attendance:", "T001");
+            if (tid) fetchTeacherAttendance(tid);
+        }
+        
+        function promptViewLessonPlans() {
+            let tid = prompt("Please enter your Teacher ID to view lesson plans:", "T001");
+            if (tid) fetchLessonPlans(tid);
+        }
+
+        async function fetchTeacherAttendance(tid) {
+            const container = document.getElementById('results-container');
+            const title = document.getElementById('results-title');
+            const content = document.getElementById('results-content');
+            
+            container.style.display = 'block';
+            title.innerText = 'Loading attendance...';
+            content.innerHTML = '<span style="color:var(--primary-light)">Fetching...</span>';
+            
+            try {
+                let response = await fetch(`/api/academic/report/${tid}`);
+                let data = await response.json();
+                
+                if(data.length === 0) {
+                    content.innerText = "No attendance records found.";
+                } else {
+                    let tableHTML = `<table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); text-align: left; color: white;">
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Student</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Course</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Attendance Rate</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                    
+                    data.forEach(item => {
+                        let color = item.Status === 'OK' ? '#4ade80' : '#f87171';
+                        tableHTML += `<tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 0.8rem 0.5rem;">${item.StudentName || ''} (${item.StudentID || ''})</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.CourseID || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.AttendanceRate.toFixed(2)}%</td>
+                            <td style="padding: 0.8rem 0.5rem; color: ${color}; font-weight: bold;">${item.Status}</td>
+                        </tr>`;
+                    });
+                    tableHTML += `</tbody></table>`;
+                    
+                    title.innerText = '📋 Student Attendance Report';
+                    content.innerHTML = tableHTML;
+                }
+            } catch (error) {
+                title.innerText = 'Error';
+                content.innerText = 'Failed to fetch data!';
+            }
+        }
+
+        async function fetchLessonPlans(tid) {
+            const container = document.getElementById('results-container');
+            const title = document.getElementById('results-title');
+            const content = document.getElementById('results-content');
+            
+            container.style.display = 'block';
+            title.innerText = 'Loading lesson plans...';
+            content.innerHTML = '<span style="color:var(--primary-light)">Fetching...</span>';
+            
+            try {
+                let response = await fetch(`/api/academic/lessons/${tid}`);
+                let data = await response.json();
+                
+                if(data.length === 0 || data.error) {
+                    content.innerText = "No lesson plans found.";
+                } else {
+                    let tableHTML = `<table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(255,255,255,0.1); text-align: left; color: white;">
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">CourseID</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Topic</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Objectives</th>
+                                <th style="padding: 0.8rem 0.5rem; font-weight: 600;">Materials</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                    
+                    data.forEach(item => {
+                        tableHTML += `<tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 0.8rem 0.5rem;">${item.CourseID || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.Topic || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.Objectives || ''}</td>
+                            <td style="padding: 0.8rem 0.5rem;">${item.Materials || ''}</td>
+                        </tr>`;
+                    });
+                    tableHTML += `</tbody></table>`;
+                    
+                    title.innerText = '📘 My Lesson Plans';
+                    content.innerHTML = tableHTML;
+                }
+            } catch (error) {
+                title.innerText = 'Error';
+                content.innerText = 'Failed to fetch data!';
+            }
+        }
+    </script>
+</body>
+</html>

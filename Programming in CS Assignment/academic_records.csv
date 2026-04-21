@@ -1,0 +1,11 @@
+StudentName,StudentID,CourseID,Week1,Week2,Week3,Week4,AssessmentMarks,FinalExamMarks
+John Doe,S001,C101,Present,Present,Coming,Coming,59.0,75.0
+John Doe,S001,C102,Present,Coming,Coming,Coming,,
+Mary Tan,S002,C101,Present,Coming,Coming,Coming,,
+Mary Tan,S002,C103,Present,Coming,Coming,Coming,,
+Ali Bin Hassan,S003,C102,Present,Coming,Coming,Coming,,
+Ali Bin Hassan,S003,C104,Present,Coming,Coming,Coming,,
+Siti Aminah,S004,C103,Present,Coming,Coming,Coming,,
+Siti Aminah,S004,C105,Present,Coming,Coming,Coming,,
+David Wong,S005,C104,Present,Coming,Coming,Coming,,
+David Wong,S005,C105,Present,Coming,Coming,Coming,,
