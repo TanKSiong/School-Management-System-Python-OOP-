@@ -5,6 +5,9 @@
 This project is a web-based School Management System that integrates a Python backend logic with a HTML-based web interface.
 
 The system allows users to manage student records, academic data, and administrative operations through a user-friendly interface, replacing the original command-line version with a more practical and interactive solution.
+<img width="1812" height="820" alt="image" src="https://github.com/user-attachments/assets/e196730e-6f62-40da-96c6-73602faeca54" />
+
+<img width="1523" height="823" alt="image" src="https://github.com/user-attachments/assets/888badfd-05eb-4b10-b888-bec2b134e8bc" />
 
 ---
 
